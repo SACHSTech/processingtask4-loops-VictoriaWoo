@@ -2,35 +2,52 @@ import processing.core.PApplet;
 
 public class Sketch extends PApplet {
 	
-	
-  /**
-   * Called once at the beginning of execution, put your size all in this method
-   */
   public void settings() {
-	// put your size call here
     size(400, 400);
   }
 
-  /** 
-   * Called once at the beginning of execution.  Add initial set up
-   * values here i.e background, stroke, fill etc.
-   */
   public void setup() {
-    background(210, 255, 173);
+    background(255, 255, 255);
   }
 
-  /**
-   * Called repeatedly, anything drawn to the screen goes here
-   */
   public void draw() {
 	  
-	// sample code, delete this stuff
-    stroke(128);
-    line(150, 25, 270, 350);  
+    // Quadrant 1 - 10x10 grid
+    for (int intLineX = width/20; intLineX <= width/2; intLineX += width/20) {
+      line(intLineX, 0, intLineX, height/2);
+    }
+    
+    for(int intLineY = height/20; intLineY <= height/2; intLineY += height/20) {
+      line(0, intLineY, width/2, intLineY);
+    }
 
-    stroke(255);
-    line(50, 125, 70, 50);  
+    // Quadrant 2 - 5x5 grid of evenly spaced circles 
+    for (int intCircleX = ((width/2) + (width/20)); intCircleX <= width; intCircleX += width/10) {
+      for (int intCircleY = height/20; intCircleY <= height/2; intCircleY += height/10) {
+        fill (188, 19, 111);
+        circle(intCircleX, intCircleY, height/20);
+      }
+    }
+
+    // Quadrant 3 - Horizontal grayscale gradient
+    for (int i = 0; i < width/2; i++) {
+      stroke (i, i, i);
+      line(i, height/2, i, height);
+    }
+
+    // Quadrant 4 - 8 petal flower
+    // explanation: translation() moves the origin from (0,0) to (300, 300). push() and pop() are used before the translation and after the for loop to not affect the green center circle.
+    
+    push();
+    translate(300, 300);
+    for (int intPetal = 0; intPetal <= 8; intPetal++){
+      fill(179, 89, 59);
+      rotate(PI/4);
+      ellipse(0, 30, 18, 70);
+    }
+    pop();
+
+    fill(35, 116, 44);
+    circle(300, 300, 30);
   }
-  
-  // define other methods down here.
 }
